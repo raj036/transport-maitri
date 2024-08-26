@@ -1,29 +1,34 @@
 import { FunctionComponent, useRef, useState } from "react";
+import Swal from "sweetalert2";
+import axios from "../helper/axios";
+import { useNavigate } from "react-router-dom";
 export type OuterFieldsRow2Type = {
   className?: string;
 };
 
-const Departure: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) => {
-
+const Departure: FunctionComponent<OuterFieldsRow2Type> = ({
+  className = "",
+}) => {
   const [data, setData] = useState({
-    user_name: "",
-    user_email: "",
-    user_password: "",
-    phone_no: "",
-    driver_address: "",
-    driver_images: null as File | null,
-    driver_license: null as File | null,
+    vehicle_number: null as File | null,
+    chassis: null as File | null,
+    condition: null as File | null,
+    license_image: null as File | null,
+    Container_image: null as File | null,
   });
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
   const handleButtonClick = (ref: React.RefObject<HTMLInputElement>) => {
     ref.current?.click();
   };
 
   const [fileName, setFileName] = useState({
-    driver_images: "No file chosen",
-    driver_license: "No file chosen",
+    vehicle_number: "No file chosen",
+    chassis: "No file chosen",
+    condition: "No file chosen",
+    license_image: "No file chosen",
+    Container_image: "No file chosen",
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,7 +52,62 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) =
     }
   };
 
-  const driverLicenseRef = useRef<HTMLInputElement>(null);
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    try {
+      const formData = new FormData();
+      if (data.vehicle_number) {
+        formData.append("vehicle_number", data.vehicle_number);
+      }
+      if (data.chassis) {
+        formData.append("chassis", data.chassis);
+      }
+      if (data.condition) {
+        formData.append("condition", data.condition);
+      }
+      if (data.license_image) {
+        formData.append("license_image", data.license_image);
+      }
+      if (data.Container_image) {
+        formData.append("Container_image", data.Container_image);
+      }
+      const response = await axios.post("/api/departure/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "ngrok-skip-browser-warning": "true",
+        },
+      });
+      console.log(response);
+
+      Swal.fire({
+        title: "Registration Successful!",
+        text: "Your form submitted successfully.",
+        icon: "success",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "OK",
+      });
+    } catch (error: any) {
+      let errorMessage = "An error occurred during registration.";
+      if (error.response) {
+        errorMessage = error.response.data.detail || errorMessage;
+      }
+      console.log(error.response.data.detail);
+      Swal.fire({
+        title: "Error",
+        text: errorMessage,
+        icon: "error",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#d33",
+      });
+    }
+  };
+
+  const vehicleNoRef = useRef<HTMLInputElement>(null);
+  const chassisRef = useRef<HTMLInputElement>(null);
+  const conditionRef = useRef<HTMLInputElement>(null);
+  const licenseImageRef = useRef<HTMLInputElement>(null);
+  const containerImageRef = useRef<HTMLInputElement>(null);
 
   return (
     <div className="w-[425px] relative pt-8 mx-auto my-0 bg-darkslategray-200 overflow-hidden flex flex-col items-start justify-start px-0 pb-[59px] box-border gap-[15px] leading-[normal] tracking-[normal]">
@@ -65,7 +125,10 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) =
         />
       </section>
       <section className="self-stretch flex flex-row items-start justify-start py-0 px-[21px] box-border max-w-full">
-        <form className="m-0 flex-1 flex flex-col items-start justify-start gap-[29.8px] max-w-full">
+        <form
+          onSubmit={handleSubmit}
+          className="m-0 flex-1 flex flex-col items-start justify-start gap-[29.8px] max-w-full"
+        >
           <div className="flex flex-row items-start justify-start pt-0 px-0 pb-[8.2px]">
             <img
               className="h-[37px] w-[142px] relative object-cover"
@@ -85,21 +148,21 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) =
                 <input
                   className="w-[80%] [border:none] [outline:none] bg-[transparent] h-[15.8px] flex flex-col items-start justify-start pt-[2.9px] px-0 pb-0 box-border font-inter font-bold text-xs text-gray"
                   placeholder="Upload License"
-                  name="driver_license"
+                  name="vehicle_number"
                   type="text"
                   readOnly
-                  value={fileName.driver_license}
+                  value={fileName.vehicle_number}
                 />
                 <img
                   className="h-[19.9px] w-5 relative z-[1]"
                   alt=""
                   src="/vector-4.svg"
-                  onClick={() => handleButtonClick(driverLicenseRef)}
+                  onClick={() => handleButtonClick(vehicleNoRef)}
                 />
                 <input
-                  ref={driverLicenseRef}
+                  ref={vehicleNoRef}
                   className="hidden"
-                  name="driver_license"
+                  name="vehicle_number"
                   type="file"
                   accept="image/*"
                   onChange={handleChange}
@@ -119,21 +182,21 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) =
                 <input
                   className="w-[80%] [border:none] [outline:none] bg-[transparent] h-[15.8px] flex flex-col items-start justify-start pt-[2.9px] px-0 pb-0 box-border font-inter font-bold text-xs text-gray"
                   placeholder="Upload License"
-                  name="driver_license"
+                  name="chassis"
                   type="text"
                   readOnly
-                  value={fileName.driver_license}
+                  value={fileName.chassis}
                 />
                 <img
                   className="h-[19.9px] w-5 relative z-[1]"
                   alt=""
                   src="/vector-4.svg"
-                  onClick={() => handleButtonClick(driverLicenseRef)}
+                  onClick={() => handleButtonClick(chassisRef)}
                 />
                 <input
-                  ref={driverLicenseRef}
+                  ref={chassisRef}
                   className="hidden"
-                  name="driver_license"
+                  name="chassis"
                   type="file"
                   accept="image/*"
                   onChange={handleChange}
@@ -155,21 +218,21 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) =
                 <input
                   className="w-[80%] [border:none] [outline:none] bg-[transparent] h-[15.8px] flex flex-col items-start justify-start pt-[2.9px] px-0 pb-0 box-border font-inter font-bold text-xs text-gray"
                   placeholder="Upload License"
-                  name="driver_license"
+                  name="condition"
                   type="text"
                   readOnly
-                  value={fileName.driver_license}
+                  value={fileName.condition}
                 />
                 <img
                   className="h-[19.9px] w-5 relative z-[1]"
                   alt=""
                   src="/vector-4.svg"
-                  onClick={() => handleButtonClick(driverLicenseRef)}
+                  onClick={() => handleButtonClick(conditionRef)}
                 />
                 <input
-                  ref={driverLicenseRef}
+                  ref={conditionRef}
                   className="hidden"
-                  name="driver_license"
+                  name="condition"
                   type="file"
                   accept="image/*"
                   onChange={handleChange}
@@ -183,7 +246,7 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) =
             frame15Placeholder="Address"
             propWidth="50px"
           /> */}
-       <div
+          <div
             className={`self-stretch z-10 flex flex-row items-start justify-start py-0 pl-px pr-0 box-border max-w-full text-center text-xs text-white font-inter ${className}`}
           >
             <div className="flex-1 flex flex-col items-start justify-start gap-[5px] max-w-full">
@@ -194,21 +257,21 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) =
                 <input
                   className="w-[80%] [border:none] [outline:none] bg-[transparent] h-[15.8px] flex flex-col items-start justify-start pt-[2.9px] px-0 pb-0 box-border font-inter font-bold text-xs text-gray"
                   placeholder="Upload License"
-                  name="driver_license"
+                  name="license_image"
                   type="text"
                   readOnly
-                  value={fileName.driver_license}
+                  value={fileName.license_image}
                 />
                 <img
                   className="h-[19.9px] w-5 relative z-[1]"
                   alt=""
                   src="/vector-4.svg"
-                  onClick={() => handleButtonClick(driverLicenseRef)}
+                  onClick={() => handleButtonClick(licenseImageRef)}
                 />
                 <input
-                  ref={driverLicenseRef}
+                  ref={licenseImageRef}
                   className="hidden"
-                  name="driver_license"
+                  name="license_image"
                   type="file"
                   accept="image/*"
                   onChange={handleChange}
@@ -227,21 +290,21 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) =
                 <input
                   className="w-[80%] [border:none] [outline:none] bg-[transparent] h-[15.8px] flex flex-col items-start justify-start pt-[2.9px] px-0 pb-0 box-border font-inter font-bold text-xs text-gray"
                   placeholder="Upload License"
-                  name="driver_license"
+                  name="Container_image"
                   type="text"
                   readOnly
-                  value={fileName.driver_license}
+                  value={fileName.Container_image}
                 />
                 <img
                   className="h-[19.9px] w-5 relative z-[1]"
                   alt=""
                   src="/vector-4.svg"
-                  onClick={() => handleButtonClick(driverLicenseRef)}
+                  onClick={() => handleButtonClick(containerImageRef)}
                 />
                 <input
-                  ref={driverLicenseRef}
+                  ref={containerImageRef}
                   className="hidden"
-                  name="driver_license"
+                  name="Container_image"
                   type="file"
                   accept="image/*"
                   onChange={handleChange}
@@ -252,7 +315,10 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) =
           {/* <OuterFieldsRow1 driverImage="Driver image" />
           <OuterFieldsRow1 driverImage="License image" propMinWidth="86px" /> */}
           <div className="self-stretch flex flex-row items-start justify-center py-0 pl-[21px] pr-5">
-            <button className="cursor-pointer [border:none] py-1.5 pl-[30px] pr-3.5 bg-system-background-dark-base-primary shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-mini flex flex-row items-start justify-start gap-6 z-[1]">
+            <button
+              type="submit"
+              className="cursor-pointer [border:none] py-1.5 pl-[30px] pr-3.5 bg-system-background-dark-base-primary shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-mini flex flex-row items-start justify-start gap-6 z-[1]"
+            >
               <div className="h-[50px] w-[188px] relative shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-mini bg-system-background-dark-base-primary hidden" />
               <div className="flex flex-col items-start justify-start pt-3 px-0 pb-0">
                 {/* <Link to=""> */}
