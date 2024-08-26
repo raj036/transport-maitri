@@ -9,6 +9,8 @@ import Home from "./pages/Home";
 import Page from "./pages/Page";
 import Page4Blank from "./pages/Page4Blank";
 import SignUp from "./pages/SignUp";
+import Arrival from "./pages/Arrival";
+import Departure from "./pages/Departure";
 
 function App() {
   const action = useNavigationType();
@@ -38,7 +40,7 @@ function App() {
         title = "";
         metaDescription = "";
         break;
-      case "/sign-up":
+      case "/register":
         title = "";
         metaDescription = "";
         break;
@@ -61,9 +63,11 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/" element={<Page />} />
+      <Route path="/page" element={<Page />} />
       <Route path="/page-4-blank" element={<Page4Blank />} />
-      <Route path="/sign-up" element={<SignUp />} />
+      <Route path="/register" element={<SignUp />} />
+      <Route path="/arrival" element={<Arrival />} />
+      <Route path="/departure" element={<Departure />} />
     </Routes>
   );
 }

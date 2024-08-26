@@ -1,21 +1,15 @@
 import { FunctionComponent } from "react";
 import MainContent from "../components/MainContent";
+import { Link } from "react-router-dom";
 
-const Home: FunctionComponent = () => {
+interface HomeProps {
+}
+
+const Home: React.FC<HomeProps> = () => {
   return (
-    <div className="w-[425px] mx-auto my-0 relative pt-8 bg-darkslategray-200 overflow-hidden flex flex-col items-start justify-start  px-0 pb-[101px] box-border gap-12 leading-[normal] tracking-[normal]">
-      {/* <StatusBar1
-        statusBarTimeFlex="unset"
-        statusBarTimeRowGap="unset"
-        statusBarTimeAlignSelf="stretch"
-        timeMinWidth="unset"
-        trueDepthCameraMinWidth="unset"
-        iconMobileSignalMinWidth="unset"
-        time="9:41"
-        statusBarBattery="80"
-      /> */}
+    <div className=" w-[425px] mx-auto my-0 relative pt-8 bg-darkslategray-200 overflow-hidden flex flex-col items-start justify-start  px-0 pb-[101px] box-border gap-12 leading-[normal] tracking-[normal]">
       <section className="self-stretch flex flex-row items-start justify-start py-0 pl-5 pr-[23px] box-border max-w-full">
-        <MainContent />
+      <MainContent /> {/* Passing the login prop here */}
       </section>
       <section className="self-stretch flex flex-row items-start justify-start pt-0 pb-[15px] pl-[69px] pr-[68px] text-center text-[14px] text-white font-inter">
         <div className="flex-1 flex flex-col items-end justify-start gap-[43px]">
@@ -24,7 +18,7 @@ const Home: FunctionComponent = () => {
               OR
             </b>
           </div>
-          <b className="relative text-base tracking-[0.06px] leading-[13px] z-[1]">
+          <b className=" text-base tracking-[0.06px] text-center leading-[13px] z-[1]">
             No account yet? Open your now.
           </b>
         </div>
@@ -57,9 +51,11 @@ const Home: FunctionComponent = () => {
       <div className="self-stretch flex flex-row items-start justify-start py-0 pl-5 pr-[23px] box-border max-w-full">
         <button className="cursor-pointer [border:none] pt-[18px] pb-[19px] pl-[23px] pr-5 bg-system-background-dark-base-primary flex-1 shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-mini flex flex-row items-start justify-center box-border whitespace-nowrap max-w-full z-[1]">
           <div className="h-[50px] w-[350px] relative shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-mini bg-system-background-dark-base-primary hidden max-w-full" />
-          <div className="w-[183px] relative text-5xl tracking-[0.06px] leading-[13px] font-semibold font-inter text-white text-center flex items-center justify-center z-[2]">
-            Create Account
-          </div>
+          <Link to="/register" className="no-underline">
+            <div className="w-[183px] relative text-5xl tracking-[0.06px] leading-[13px] font-semibold font-inter text-white text-center flex items-center justify-center z-[2]">
+              Create Account
+            </div>
+          </Link>
         </button>
       </div>
     </div>

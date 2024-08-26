@@ -1,4 +1,4 @@
-import { FunctionComponent, useMemo, type CSSProperties } from "react";
+import { FunctionComponent, useMemo, type CSSProperties, useRef } from "react";
 
 export type OuterFieldsRow1Type = {
   className?: string;
@@ -13,11 +13,19 @@ const OuterFieldsRow1: FunctionComponent<OuterFieldsRow1Type> = ({
   driverImage,
   propMinWidth,
 }) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const driverImageStyle: CSSProperties = useMemo(() => {
     return {
       minWidth: propMinWidth,
     };
   }, [propMinWidth]);
+
+  const handleButtonClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
 
   return (
     <div
@@ -45,8 +53,19 @@ const OuterFieldsRow1: FunctionComponent<OuterFieldsRow1Type> = ({
             alt=""
             src="/vector-4.svg"
           />
-          <button className="cursor-pointer [border:none] py-[4.9px] pl-[9px] pr-2 bg-system-background-dark-base-primary rounded-mini flex flex-row items-start justify-start whitespace-nowrap z-[2]">
-            <div className="h-[22.8px] w-[99px] relative rounded-mini bg-system-background-dark-base-primary hidden" />
+          {/* Hidden file input */}
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            className="hidden"
+          />
+          {/* Custom button to trigger file input */}
+          <button
+            type="button"
+            className="cursor-pointer [border:none] py-[4.9px] pl-[9px] pr-2 bg-system-background-dark-base-primary rounded-mini flex flex-row items-start justify-start whitespace-nowrap z-[2]"
+            onClick={handleButtonClick}
+          >
             <b className="relative text-xs tracking-[0.06px] leading-[13px] inline-block font-inter text-white text-center min-w-[82px] z-[3]">
               Upload image
             </b>
