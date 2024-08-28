@@ -59,9 +59,11 @@ const SignUp: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) => {
       ...prevData,
       [inputName]: "",
     }));
-    
+
     // Directly update the input element
-    const inputElement = document.querySelector(`input[name="${inputName}"]`) as HTMLInputElement;
+    const inputElement = document.querySelector(
+      `input[name="${inputName}"]`
+    ) as HTMLInputElement;
     if (inputElement) {
       inputElement.value = "";
     }
@@ -69,7 +71,7 @@ const SignUp: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) => {
 
   const passShow = () => {
     setPass(!pass);
-  }
+  };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -107,22 +109,22 @@ const SignUp: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) => {
         icon: "success",
         confirmButtonColor: "#3085d6",
         confirmButtonText: "OK",
-      }).then(()=> {
-       navigate('/')
-      })
+      }).then(() => {
+        navigate("/");
+      });
     } catch (error: any) {
       let errorMessage = "An error occurred during registration.";
-    if (error.response) {
-      errorMessage = error.response.data.detail || errorMessage;
-    }
-     console.log(error.response.data.detail);
-     Swal.fire({
-      title: "Error",
-      text: errorMessage,
-      icon: "error",
-      confirmButtonText: "OK",
-      confirmButtonColor: "#d33",
-    });
+      if (error.response) {
+        errorMessage = error.response.data.detail || errorMessage;
+      }
+      console.log(error.response.data.detail);
+      Swal.fire({
+        title: "Error",
+        text: errorMessage,
+        icon: "error",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#d33",
+      });
     }
   };
 
@@ -173,7 +175,7 @@ const SignUp: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) => {
                   className="h-[19.9px] w-5 relative z-[1] cursor-pointer"
                   alt=""
                   src="/vector1.svg"
-                  onClick={()=> handleClearInp("user_name")}
+                  onClick={() => handleClearInp("user_name")}
                 />
               </div>
             </div>
@@ -201,7 +203,7 @@ const SignUp: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) => {
                   className="h-[19.9px] w-5 relative z-[1] cursor-pointer"
                   alt=""
                   src="/vector1.svg"
-                  onClick={()=> handleClearInp("user_email")}
+                  onClick={() => handleClearInp("user_email")}
                 />
               </div>
             </div>
@@ -220,7 +222,7 @@ const SignUp: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) => {
                   className="w-[80%] [border:none] [outline:none] bg-[transparent] h-[15.8px] flex flex-col items-start justify-start pt-[2.9px] px-0 pb-0 box-border font-inter font-bold text-xs text-gray"
                   placeholder="Minimum 8 characters"
                   name="user_password"
-                  type={ pass ? "text" : "password"}
+                  type={pass ? "text" : "password"}
                   onChange={handleChange}
                   required
                 />
@@ -256,7 +258,7 @@ const SignUp: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) => {
                   className="h-[19.9px] w-5 relative z-[1] cursor-pointer"
                   alt=""
                   src="/vector1.svg"
-                  onClick={()=> handleClearInp("phone_no")}
+                  onClick={() => handleClearInp("phone_no")}
                 />
               </div>
             </div>
@@ -282,7 +284,7 @@ const SignUp: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) => {
                   className="h-[19.9px] w-5 relative z-[1] cursor-pointer"
                   alt=""
                   src="/vector1.svg"
-                  onClick={()=> handleClearInp("driver_address")}
+                  onClick={() => handleClearInp("driver_address")}
                 />
               </div>
             </div>
@@ -305,7 +307,7 @@ const SignUp: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) => {
                   value={fileName.driver_images}
                 />
                 <img
-                  className="h-[19.9px] w-5 relative z-[1]"
+                  className="h-[19.9px] w-5 relative z-[1] cursor-pointer"
                   alt=""
                   src="/vector-4.svg"
                   onClick={() => handleButtonClick(driverImagesRef)}
@@ -339,7 +341,7 @@ const SignUp: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) => {
                   value={fileName.driver_license}
                 />
                 <img
-                  className="h-[19.9px] w-5 relative z-[1]"
+                  className="h-[19.9px] w-5 relative z-[1] cursor-pointer"
                   alt=""
                   src="/vector-4.svg"
                   onClick={() => handleButtonClick(driverLicenseRef)}

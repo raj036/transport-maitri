@@ -1,10 +1,5 @@
 // src/components/MainContent.tsx
-import {
-  CSSProperties,
-  FunctionComponent,
-  useRef,
-  useState,
-} from "react";
+import { CSSProperties, FunctionComponent, useRef, useState } from "react";
 import { useAuth } from "../AuthContext/LoginContext";
 
 export type MainContentType = {
@@ -26,6 +21,7 @@ const MainContent: FunctionComponent<MainContentType> = ({
   });
   const [fileName, setFileName] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [pass, setPass] = useState(false);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -76,6 +72,24 @@ const MainContent: FunctionComponent<MainContentType> = ({
     fileInputRef.current?.click();
   };
 
+  const handleClearInp = (inputName: string) => {
+    setLogData((prevData) => ({
+      ...prevData,
+      [inputName]: "",
+    }));
+
+    const inputElement = document.querySelector(
+      `input[name="${inputName}"]`
+    ) as HTMLInputElement;
+    if (inputElement) {
+      inputElement.value = "";
+    }
+  };
+
+  const passShow = () => {
+    setPass(!pass);
+  };
+
   return (
     <div
       className={`flex-1 flex flex-col items-end justify-start gap-[67px] max-w-full ${className}`}
@@ -105,10 +119,10 @@ const MainContent: FunctionComponent<MainContentType> = ({
       >
         {/* upload image for login */}
         <div
-          className={`self-stretch flex flex-row items-start justify-start py-0 pl-px pr-0 box-border max-w-full text-center text-xs text-white font-inter ${className}`}
+          className={`self-stretch flex flex-row items-start justify-start py-0  pr-0 box-border max-w-full text-center text-xs text-white font-inter ${className}`}
         >
           <div className="flex-1 flex flex-col items-start justify-start gap-[5px] max-w-full">
-            <div className="flex flex-row items-start justify-start py-0 px-px">
+            <div className="flex flex-row items-start justify-start py-0 ">
               <b className="relative tracking-[0.06px] leading-[13px] inline-block min-w-[76px] z-[1]">
                 User Image
               </b>
@@ -120,14 +134,14 @@ const MainContent: FunctionComponent<MainContentType> = ({
                   {fileName || "No file chosen"}
                 </b>
               </div>
-              <img
+              {/* <img
                 className="h-[15.9px] w-4 absolute !m-[0] top-[15.8px] right-[17px] z-[2]"
                 loading="lazy"
                 alt=""
                 src="/vector-4.svg"
-              />
+              /> */}
               {/* Hidden file input */}
-              
+
               <input
                 type="file"
                 name="file"
@@ -137,28 +151,32 @@ const MainContent: FunctionComponent<MainContentType> = ({
                 onChange={handleFileChange}
               />
               {/* Custom button to trigger file input */}
-              <button
+              {/* <button
                 type="button"
                 className="cursor-pointer [border:none] py-[4.9px] pl-[9px] pr-2 bg-system-background-dark-base-primary rounded-mini flex flex-row items-start justify-start whitespace-nowrap z-[2]"
                 onClick={handleButtonClick}
-              >
-                <b className="relative text-xs tracking-[0.06px] leading-[13px] inline-block font-inter text-white text-center min-w-[82px] z-[3]">
-                  Upload image
-                </b>
-              </button>
+              > */}
+              <img
+                className="h-[20px] w-6 cursor-pointer absolute !m-[0] top-[12px] right-[17px] z-[2]"
+                loading="lazy"
+                alt=""
+                src="/vector-4.svg"
+                onClick={handleButtonClick}
+              />
+              {/* </button> */}
             </div>
           </div>
         </div>
         {/* upload image for login */}
         <p className="justify-center content-center mx-auto text-white">OR</p>
         <div className="self-stretch flex flex-col items-start justify-start pt-0 px-0 pb-1 box-border gap-[5px] max-w-full">
-          <b className="relative text-xs tracking-[0.06px] leading-[13px] inline-block font-inter text-white text-center min-w-[61px]">
-            Username
+          <b className="relative text-xs tracking-[0.06px] leading-[13px] inline-block font-inter text-white text-center">
+            Email
           </b>
           <div className="self-stretch shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-mini bg-darkslategray-100 flex flex-row items-start justify-between py-[15px] pl-[21px] pr-[13px] box-border max-w-full gap-5">
             <input
               className="w-[80%] [border:none] [outline:none] bg-[transparent] h-4 flex flex-col items-start justify-start pt-[3px] px-0 pb-0 box-border font-inter font-bold text-xs text-gray"
-              placeholder="Username"
+              placeholder="User Email"
               name="user_email"
               type="text"
               onChange={(e) => handleChange("user_email", e)}
@@ -167,6 +185,7 @@ const MainContent: FunctionComponent<MainContentType> = ({
               className="h-5 w-5 relative z-[1]"
               alt=""
               src="/vector-12.svg"
+              onClick={() => handleClearInp("user_email")}
             />
           </div>
         </div>
@@ -181,13 +200,14 @@ const MainContent: FunctionComponent<MainContentType> = ({
               className="w-[80%] [border:none] [outline:none] bg-[transparent] h-4 flex flex-col items-start justify-start pt-[3px] px-0 pb-0 box-border font-inter font-bold text-xs text-gray"
               placeholder="Password"
               name="user_password"
-              type="password"
+              type={pass ? "text" : "password"}
               onChange={(e) => handleChange("user_password", e)}
             />
             <img
-              className="self-stretch w-[27px] relative max-h-full min-h-[15px] z-[1]"
+              className="self-stretch w-[27px] relative max-h-full min-h-[15px] z-[1] cursor-pointer"
               alt=""
               src="/vector-21.svg"
+              onClick={passShow}
             />
           </div>
         </div>
@@ -205,9 +225,7 @@ const MainContent: FunctionComponent<MainContentType> = ({
 
         {/* Loader image */}
         {isLoading && (
-          <div className="flex justify-center items-center ">
-            loading ...
-          </div>
+          <div className="flex justify-center items-center ">loading ...</div>
         )}
       </form>
     </div>

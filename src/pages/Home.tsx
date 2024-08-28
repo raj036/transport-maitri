@@ -1,4 +1,3 @@
-import { FunctionComponent } from "react";
 import MainContent from "../components/MainContent";
 import { Link } from "react-router-dom";
 
@@ -11,8 +10,8 @@ const Home: React.FC<HomeProps> = () => {
       <section className="self-stretch flex flex-row items-start justify-start py-0 pl-5 pr-[23px] box-border max-w-full">
       <MainContent /> {/* Passing the login prop here */}
       </section>
-      <section className="self-stretch flex flex-row items-start justify-start pt-0 pb-[15px] pl-[69px] pr-[68px] text-center text-[14px] text-white font-inter">
-        <div className="flex-1 flex flex-col items-end justify-start gap-[43px]">
+      <section className="self-stretch flex flex-row items-start justify-center pt-0 pb-[15px] pl-[69px] pr-[68px] text-center text-[14px] text-white font-inter">
+        <div className=" flex flex-col items-end justify-start gap-[43px]">
           <div className="self-stretch flex flex-row items-start justify-center py-0 pl-[21px] pr-5">
             <b className="relative tracking-[0.06px] leading-[13px] inline-block min-w-[21px] z-[1]">
               OR
@@ -30,13 +29,13 @@ const Home: React.FC<HomeProps> = () => {
           src="/rectangle-1.svg"
         />
         <img
-          className="absolute top-[167px] left-[20px] w-[135px] h-px z-[1]"
+          className="absolute top-[167px] left-[60px] w-[135px] h-px z-[1]"
           loading="lazy"
           alt=""
           src="/vector-13.svg"
         />
         <img
-          className="absolute top-[167px] left-[242px] w-[135px] h-px z-[1]"
+          className="absolute top-[167px] right-[60px] w-[135px] h-px z-[1]"
           loading="lazy"
           alt=""
           src="/vector-13.svg"

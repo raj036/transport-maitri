@@ -1,5 +1,10 @@
-// src/contexts/AuthContext.tsx
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+} from "react";
 import axios from "../helper/axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 // Define the shape of the context
 interface AuthContextType {
   isAuthenticated: boolean;
+  userData: any; // New state to store user data
   login: (email: string, password: string, file?: File) => Promise<void>;
   logout: () => void;
 }
@@ -17,8 +23,28 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    // Check localStorage for existing authentication state
+    const savedUserData = localStorage.getItem("userData");
+    return savedUserData ? true : false;
+  });
+
+  const [userData, setUserData] = useState<any>(() => {
+    // Retrieve user data from localStorage if available
+    const savedUserData = localStorage.getItem("userData");
+    return savedUserData ? JSON.parse(savedUserData) : null;
+  });
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Store the user data in localStorage whenever it changes
+    if (userData) {
+      localStorage.setItem("userData", JSON.stringify(userData));
+    } else {
+      localStorage.removeItem("userData");
+    }
+  }, [userData]);
 
   // Define the login function
   const login = async (email: string, password: string, file?: File) => {
@@ -36,6 +62,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
       if (response.status === 200) {
         setIsAuthenticated(true);
+        setUserData(response.data); // Store user data in state
         navigate("/page");
       }
     } catch (error) {
@@ -54,7 +81,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const logout = async () => {
     if (isAuthenticated) {
       const result = await Swal.fire({
-        title: "Are you sure you want to logout!",
+        title: "Are you sure you want to logout?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -63,13 +90,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       });
       if (result.isConfirmed) {
         setIsAuthenticated(false);
+        setUserData(null); // Clear user data from state
+        localStorage.removeItem("userData"); // Remove user data from localStorage
         navigate("/");
       }
     }
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, userData, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

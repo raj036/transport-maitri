@@ -109,6 +109,12 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({
   const licenseImageRef = useRef<HTMLInputElement>(null);
   const containerImageRef = useRef<HTMLInputElement>(null);
 
+  const vehicleCameraRef = useRef<HTMLInputElement>(null);
+  const chassisCameraRef = useRef<HTMLInputElement>(null);
+  const conditionCameraRef = useRef<HTMLInputElement>(null);
+  const licenseCameraRef = useRef<HTMLInputElement>(null);
+  const containerCameraRef = useRef<HTMLInputElement>(null);
+
   return (
     <div className="w-[425px] relative pt-8 mx-auto my-0 bg-darkslategray-200 overflow-hidden flex flex-col items-start justify-start px-0 pb-[59px] box-border gap-[15px] leading-[normal] tracking-[normal]">
       <section className="w-full h-[443px] absolute !m-[0] right-[0px] bottom-[0px] left-[0px]">
@@ -154,7 +160,13 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({
                   value={fileName.vehicle_number}
                 />
                 <img
-                  className="h-[19.9px] w-5 relative z-[1]"
+                  className="h-[18px] w-5 relative z-[1] cursor-pointer"
+                  alt=""
+                  src="/camera.png"
+                  onClick={() => handleButtonClick(vehicleCameraRef)}
+                />
+                <img
+                  className="h-[19.9px] w-5 relative z-[1] cursor-pointer"
                   alt=""
                   src="/vector-4.svg"
                   onClick={() => handleButtonClick(vehicleNoRef)}
@@ -188,10 +200,25 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({
                   value={fileName.chassis}
                 />
                 <img
-                  className="h-[19.9px] w-5 relative z-[1]"
+                  className="h-[18px] w-5 relative z-[1] cursor-pointer"
+                  alt=""
+                  src="/camera.png"
+                  onClick={() => handleButtonClick(chassisCameraRef)}
+                />
+                <img
+                  className="h-[19.9px] w-5 relative z-[1] cursor-pointer"
                   alt=""
                   src="/vector-4.svg"
                   onClick={() => handleButtonClick(chassisRef)}
+                />
+                <input
+                  ref={chassisCameraRef}
+                  className="hidden"
+                  name="chassis"
+                  type="file"
+                  accept="image/*"
+                  capture="environment"
+                  onChange={handleChange}
                 />
                 <input
                   ref={chassisRef}
@@ -212,7 +239,7 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({
           >
             <div className="flex-1 flex flex-col items-start justify-start gap-[5px] max-w-full">
               <b className="relative tracking-[0.06px] leading-[13px] inline-block ">
-                Condiion
+                Condition
               </b>
               <div className="self-stretch shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-mini bg-darkslategray-100 flex flex-row items-start justify-between pt-[14.9px] pb-[14.8px] pl-[21px] pr-[15px] box-border max-w-full gap-5">
                 <input
@@ -224,10 +251,25 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({
                   value={fileName.condition}
                 />
                 <img
-                  className="h-[19.9px] w-5 relative z-[1]"
+                  className="h-[18px] w-5 relative z-[1] cursor-pointer"
+                  alt=""
+                  src="/camera.png"
+                  onClick={() => handleButtonClick(conditionCameraRef)}
+                />
+                <img
+                  className="h-[19.9px] w-5 relative z-[1] cursor-pointer"
                   alt=""
                   src="/vector-4.svg"
                   onClick={() => handleButtonClick(conditionRef)}
+                />
+                <input
+                  ref={conditionCameraRef}
+                  className="hidden"
+                  name="condition"
+                  type="file"
+                  accept="image/*"
+                  capture="environment"
+                  onChange={handleChange}
                 />
                 <input
                   ref={conditionRef}
@@ -263,10 +305,25 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({
                   value={fileName.license_image}
                 />
                 <img
-                  className="h-[19.9px] w-5 relative z-[1]"
+                  className="h-[18px] w-5 relative z-[1] cursor-pointer"
+                  alt=""
+                  src="/camera.png"
+                  onClick={() => handleButtonClick(licenseCameraRef)}
+                />
+                <img
+                  className="h-[19.9px] w-5 relative z-[1] cursor-pointer"
                   alt=""
                   src="/vector-4.svg"
                   onClick={() => handleButtonClick(licenseImageRef)}
+                />
+                <input
+                  ref={licenseCameraRef}
+                  className="hidden"
+                  name="license_image"
+                  type="file"
+                  accept="image/*"
+                  capture="environment"
+                  onChange={handleChange}
                 />
                 <input
                   ref={licenseImageRef}
@@ -296,10 +353,25 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({
                   value={fileName.Container_image}
                 />
                 <img
-                  className="h-[19.9px] w-5 relative z-[1]"
+                  className="h-[18px] w-5 relative z-[1] cursor-pointer"
+                  alt=""
+                  src="/camera.png"
+                  onClick={() => handleButtonClick(containerCameraRef)}
+                />
+                <img
+                  className="h-[19.9px] w-5 relative z-[1] cursor-pointer"
                   alt=""
                   src="/vector-4.svg"
                   onClick={() => handleButtonClick(containerImageRef)}
+                />
+                <input
+                  ref={containerCameraRef}
+                  className="hidden"
+                  name="Container_image"
+                  type="file"
+                  accept="image/*"
+                  capture="environment"
+                  onChange={handleChange}
                 />
                 <input
                   ref={containerImageRef}
