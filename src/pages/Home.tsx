@@ -13,7 +13,7 @@ const Home: React.FC<HomeProps> = () => {
       <section className="self-stretch flex flex-row items-start justify-center pt-0 pb-[15px] pl-[69px] pr-[68px] text-center text-[14px] text-white font-inter">
         <div className=" flex flex-col items-end justify-start gap-[43px]">
           <div className="self-stretch flex flex-row items-start justify-center py-0 pl-[21px] pr-5">
-            <b className="relative tracking-[0.06px] leading-[13px] inline-block min-w-[21px] z-[1]">
+            <b className="relative tracking-[0.06px] font-inter leading-[13px] inline-block min-w-[21px] z-[1]">
               OR
             </b>
           </div>

@@ -134,12 +134,6 @@ const MainContent: FunctionComponent<MainContentType> = ({
                   {fileName || "No file chosen"}
                 </b>
               </div>
-              {/* <img
-                className="h-[15.9px] w-4 absolute !m-[0] top-[15.8px] right-[17px] z-[2]"
-                loading="lazy"
-                alt=""
-                src="/vector-4.svg"
-              /> */}
               {/* Hidden file input */}
 
               <input
@@ -150,12 +144,6 @@ const MainContent: FunctionComponent<MainContentType> = ({
                 className="hidden"
                 onChange={handleFileChange}
               />
-              {/* Custom button to trigger file input */}
-              {/* <button
-                type="button"
-                className="cursor-pointer [border:none] py-[4.9px] pl-[9px] pr-2 bg-system-background-dark-base-primary rounded-mini flex flex-row items-start justify-start whitespace-nowrap z-[2]"
-                onClick={handleButtonClick}
-              > */}
               <img
                 className="h-[20px] w-6 cursor-pointer absolute !m-[0] top-[12px] right-[17px] z-[2]"
                 loading="lazy"
@@ -175,14 +163,14 @@ const MainContent: FunctionComponent<MainContentType> = ({
           </b>
           <div className="self-stretch shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-mini bg-darkslategray-100 flex flex-row items-start justify-between py-[15px] pl-[21px] pr-[13px] box-border max-w-full gap-5">
             <input
-              className="w-[80%] [border:none] [outline:none] bg-[transparent] h-4 flex flex-col items-start justify-start pt-[3px] px-0 pb-0 box-border font-inter font-bold text-xs text-gray"
+              className="w-[80%] [border:none] focus:bg-transparent [outline:none] bg-[transparent] h-4 flex flex-col items-start justify-start pt-[3px] px-0 pb-0 box-border font-inter font-bold text-xs text-gray"
               placeholder="User Email"
               name="user_email"
               type="text"
               onChange={(e) => handleChange("user_email", e)}
             />
             <img
-              className="h-5 w-5 relative z-[1]"
+              className="h-5 w-5 relative z-[1] cursor-pointer"
               alt=""
               src="/vector-12.svg"
               onClick={() => handleClearInp("user_email")}

@@ -80,20 +80,20 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   // Define the logout function
   const logout = async () => {
     if (isAuthenticated) {
-      const result = await Swal.fire({
-        title: "Are you sure you want to logout?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, log out",
-      });
-      if (result.isConfirmed) {
+      // const result = await Swal.fire({
+      //   title: "Are you sure you want to logout?",
+      //   icon: "warning",
+      //   showCancelButton: true,
+      //   confirmButtonColor: "#3085d6",
+      //   cancelButtonColor: "#d33",
+      //   confirmButtonText: "Yes, log out",
+      // });
+      // if (result.isConfirmed) {
         setIsAuthenticated(false);
         setUserData(null); // Clear user data from state
         localStorage.removeItem("userData"); // Remove user data from localStorage
         navigate("/");
-      }
+      // }
     }
   };
 

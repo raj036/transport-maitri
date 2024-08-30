@@ -11,6 +11,7 @@ import Page4Blank from "./pages/Page4Blank";
 import SignUp from "./pages/SignUp";
 import Arrival from "./pages/Arrival";
 import Departure from "./pages/Departure";
+import VerificationPage from "./components/PopUp";
 
 function App() {
   const action = useNavigationType();
@@ -68,6 +69,7 @@ function App() {
       <Route path="/register" element={<SignUp />} />
       <Route path="/arrival" element={<Arrival />} />
       <Route path="/departure" element={<Departure />} />
+      <Route path="/popup" element={<VerificationPage />} />
     </Routes>
   );
 }

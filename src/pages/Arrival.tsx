@@ -1,7 +1,9 @@
-import { FunctionComponent, useRef, useState } from "react";
+import { FunctionComponent, useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import axios from "../helper/axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../AuthContext/LoginContext";
+import VerificationPage from "../components/PopUp";
 export type OuterFieldsRow2Type = {
   className?: string;
 };
@@ -16,8 +18,15 @@ const Arrival: FunctionComponent<OuterFieldsRow2Type> = ({
     license_image: null as File | null,
     Container_image: null as File | null,
   });
+  const [showPop, setShowPop] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
+
+  const { userData }: any = useAuth();
+
+  console.log(userData.assigned_keys);
+  console.log(userData.Truck_number);
 
   const handleButtonClick = (ref: React.RefObject<HTMLInputElement>) => {
     ref.current?.click();
@@ -54,7 +63,7 @@ const Arrival: FunctionComponent<OuterFieldsRow2Type> = ({
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-
+    setIsLoading(true);
     try {
       const formData = new FormData();
       if (data.vehicle_number) {
@@ -80,13 +89,14 @@ const Arrival: FunctionComponent<OuterFieldsRow2Type> = ({
       });
       console.log(response);
 
-      Swal.fire({
-        title: "Registration Successful!",
-        text: "Your form submitted successfully.",
-        icon: "success",
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: "OK",
-      });
+      // Swal.fire({
+      //   title: "Your form submitted successfully.",
+      //   icon: "success",
+      //   confirmButtonColor: "#3085d6",
+      //   confirmButtonText: "OK",
+      // });
+      setIsLoading(false);
+      setShowPop(true);
     } catch (error: any) {
       let errorMessage = "An error occurred during registration.";
       if (error.response) {
@@ -100,8 +110,15 @@ const Arrival: FunctionComponent<OuterFieldsRow2Type> = ({
         confirmButtonText: "OK",
         confirmButtonColor: "#d33",
       });
+      setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (showPop) {
+      navigate("/popup");
+    }
+  }, [showPop, navigate]);
 
   const vehicleNoRef = useRef<HTMLInputElement>(null);
   const chassisRef = useRef<HTMLInputElement>(null);
@@ -130,6 +147,7 @@ const Arrival: FunctionComponent<OuterFieldsRow2Type> = ({
           src="/line-4.svg"
         />
       </section>
+
       <section className="self-stretch flex flex-row items-start justify-start py-0 px-[21px] box-border max-w-full">
         <form
           onSubmit={handleSubmit}
@@ -142,6 +160,13 @@ const Arrival: FunctionComponent<OuterFieldsRow2Type> = ({
               alt=""
               src="/maitriaifull-1-1@2x.png"
             />
+          </div>
+
+          <div className="text-white">
+            <h3 className="m-0">
+              Your truck number is :- {userData.Truck_number}{" "}
+            </h3>
+            <h3 className="m-0">Vehicle key is :- {userData.assigned_keys}</h3>
           </div>
           <div
             className={`self-stretch z-10 flex flex-row items-start justify-start py-0 pl-px pr-0 box-border max-w-full text-center text-xs text-white font-inter ${className}`}
@@ -399,14 +424,13 @@ const Arrival: FunctionComponent<OuterFieldsRow2Type> = ({
             <button
               type="submit"
               className="cursor-pointer [border:none] py-1.5 pl-[30px] pr-3.5 bg-system-background-dark-base-primary shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-mini flex flex-row items-start justify-start gap-6 z-[1]"
+              disabled={isLoading}
             >
               <div className="h-[50px] w-[188px] relative shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-mini bg-system-background-dark-base-primary hidden" />
               <div className="flex flex-col items-start justify-start pt-3 px-0 pb-0">
-                {/* <Link to=""> */}
-                <div className="relative text-5xl tracking-[0.06px] leading-[13px] font-semibold font-inter text-white text-center inline-block min-w-[83px] z-[2]">
-                  Submit
-                </div>
-                {/* </Link> */}
+                <b className="relative text-5xl tracking-[0.06px] leading-[13px] inline-block font-inter text-white text-center min-w-[66px] z-[2]">
+                  {isLoading ? "Submitting..." : "Submit"}
+                </b>
               </div>
               <div className="h-[38px] w-[37px] relative shadow-[4px_6px_8px_2px_rgba(0,_0,_0,_0.25)] rounded-3xs [background:linear-gradient(141.35deg,_#00a3ff,_#4b4ced)] z-[2]">
                 <div className="absolute top-[0px] left-[0px] shadow-[4px_6px_8px_2px_rgba(0,_0,_0,_0.25)] rounded-3xs [background:linear-gradient(141.35deg,_#00a3ff,_#4b4ced)] w-full h-full hidden" />
@@ -418,6 +442,10 @@ const Arrival: FunctionComponent<OuterFieldsRow2Type> = ({
               </div>
             </button>
           </div>
+          {/* Loader image */}
+          {isLoading && (
+            <div className="flex justify-center items-center ">submitting ...</div>
+          )}
         </form>
       </section>
     </div>

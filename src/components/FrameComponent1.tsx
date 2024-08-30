@@ -43,7 +43,7 @@ const FrameComponent1: FunctionComponent<FrameComponent1Type> = ({
         </div>
       </Link>
 
-      <div className="self-stretch flex flex-row items-start justify-center py-0 pl-6 pr-5">
+      {/* <div className="self-stretch flex flex-row items-start justify-center py-0 pl-6 pr-5">
         <button
           onClick={logout}
           className="cursor-pointer [border:none] pt-[18px] px-[60px] pb-[19px] bg-[transparent] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-mini [background:linear-gradient(90deg,_#2a8dfe,_#7545ff)] flex flex-row items-start justify-start z-[1]"
@@ -53,7 +53,7 @@ const FrameComponent1: FunctionComponent<FrameComponent1Type> = ({
             Logout
           </b>
         </button>
-      </div>
+      </div> */}
     </>
   );
 };
