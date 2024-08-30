@@ -1,5 +1,10 @@
 {
-    "version": 2,
+    "rewrites": [
+      {
+        "source": "/(.*)",
+        "destination": "/index.html"
+      }
+    ],
     "builds": [
       {
         "src": "package.json",
@@ -7,12 +12,6 @@
         "config": {
           "distDir": "build"
         }
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "/index.html"
       }
     ]
   }
