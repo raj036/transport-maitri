@@ -128,7 +128,7 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({
   const containerCameraRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div className="w-[425px] relative pt-8 mx-auto my-0 bg-darkslategray-200 overflow-hidden flex flex-col items-start justify-start px-0 pb-[59px] box-border gap-[15px] leading-[normal] tracking-[normal]">
+    <div className="max-w-[425px] relative pt-8 mx-auto my-0 bg-darkslategray-200 overflow-hidden flex flex-col items-start justify-start px-0 pb-[59px] box-border gap-[15px] leading-[normal] tracking-[normal]">
       <section className="w-full h-[443px] absolute !m-[0] right-[0px] bottom-[0px] left-[0px]">
         <img
           className="absolute h-full top-[0px] bottom-[0px] left-[0px] max-h-full w-[474px]"

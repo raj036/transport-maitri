@@ -4,7 +4,7 @@ import FrameComponent1 from "../components/FrameComponent1";
 
 const Page: React.FC = () => {
   return (
-    <div className="w-[425px] mx-auto my-0 relative  bg-darkslategray-200 overflow-hidden flex flex-col items-start justify-start pt-8 px-0 pb-[165px] box-border gap-[15px] leading-[normal] tracking-[normal]">
+    <div className="max-w-[425px] mx-auto my-0 relative  bg-darkslategray-200 overflow-hidden flex flex-col items-start justify-start pt-8 px-0 pb-[165px] box-border gap-[15px] leading-[normal] tracking-[normal]">
       <div className="flex flex-row items-start justify-start pt-0 px-[21px] pb-[115px]">
         <img
           className="h-[37px] w-[142px] relative object-cover"

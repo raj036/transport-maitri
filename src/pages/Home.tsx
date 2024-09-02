@@ -6,7 +6,7 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = () => {
   return (
-    <div className=" w-[425px] mx-auto my-0 relative pt-8 bg-darkslategray-200 overflow-hidden flex flex-col items-start justify-start  px-0 pb-[101px] box-border gap-12 leading-[normal] tracking-[normal]">
+    <div className=" max-w-[425px] mx-auto my-0 relative pt-8 bg-darkslategray-200 overflow-hidden flex flex-col items-start justify-start  px-0 pb-[101px] box-border gap-12 leading-[normal] tracking-[normal]">
       <section className="self-stretch flex flex-row items-start justify-start py-0 pl-5 pr-[23px] box-border max-w-full">
       <MainContent /> {/* Passing the login prop here */}
       </section>

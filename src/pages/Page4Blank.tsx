@@ -3,7 +3,7 @@ import FrameComponent2 from "../components/FrameComponent2";
 
 const Page4Blank: FunctionComponent = () => {
   return (
-    <div className="w-full relative rounded-31xl bg-darkslategray-200 overflow-hidden flex flex-col items-start justify-start gap-7 leading-[normal] tracking-[normal]">
+    <div className="max-w-[425px] relative rounded-31xl bg-darkslategray-200 overflow-hidden flex flex-col items-start justify-start gap-7 leading-[normal] tracking-[normal]">
       <FrameComponent2 />
       <section className="self-stretch h-[632px] relative">
         <button className="cursor-pointer [border:none] py-1.5 pl-[30px] pr-3.5 bg-system-background-dark-base-primary absolute top-[522px] left-[103px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-mini flex flex-row items-start justify-start gap-6 z-[1]">

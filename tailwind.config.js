@@ -5,8 +5,8 @@ module.exports = {
     extend: {
       colors: {
         darkslategray: {
-          "100": "#39475b",
-          "200": "#242c38",
+          100: "#39475b",
+          200: "#242c38",
         },
         "system-background-dark-base-primary": "#000",
         white: "#fff",
@@ -37,6 +37,9 @@ module.exports = {
       mq78: {
         raw: "screen and (max-width: 78px)",
       },
+      md: "425px",
+      sm: "375px",
+      xs: "320px",
     },
   },
   corePlugins: {
