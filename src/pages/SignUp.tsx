@@ -367,11 +367,9 @@ const SignUp: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) => {
             >
               <div className="h-[50px] w-[188px] relative shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-mini bg-system-background-dark-base-primary hidden" />
               <div className="flex flex-col items-start justify-start pt-3 px-0 pb-0">
-                {/* <Link to=""> */}
-                <div className="relative text-5xl tracking-[0.06px] leading-[13px] font-semibold font-inter text-white text-center inline-block min-w-[83px] z-[2]">
-                  Submit
-                </div>
-                {/* </Link> */}
+                <b className="relative text-5xl tracking-[0.06px] leading-[13px] inline-block font-inter text-white text-center min-w-[66px] z-[2]">
+                  {isLoading ? "Submitting..." : "Submit"}
+                </b>
               </div>
               <div className="h-[38px] w-[37px] relative shadow-[4px_6px_8px_2px_rgba(0,_0,_0,_0.25)] rounded-3xs [background:linear-gradient(141.35deg,_#00a3ff,_#4b4ced)] z-[2]">
                 <div className="absolute top-[0px] left-[0px] shadow-[4px_6px_8px_2px_rgba(0,_0,_0,_0.25)] rounded-3xs [background:linear-gradient(141.35deg,_#00a3ff,_#4b4ced)] w-full h-full hidden" />
