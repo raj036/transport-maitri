@@ -20,7 +20,7 @@ const FrameComponent1: FunctionComponent<FrameComponent1Type> = ({
     <>
       <div
         onClick={handleNavigate}
-        className={`self-stretch h-[174px] flex flex-row items-start justify-start py-0 pl-[22px] pr-[21px] box-border max-w-full text-center text-5xl text-white font-inter ${className}`}
+        className={`self-stretch h-[174px] cursor-pointer flex flex-row items-start justify-start py-0 pl-[22px] pr-[21px] box-border max-w-full text-center text-5xl text-white font-inter ${className}`}
       >
         {/* <Link to="/departure"></Link> */}
         <div className="self-stretch flex-1 [backdrop-filter:blur(40px)] rounded-mini [background:linear-gradient(100.87deg,_#39475b,_#c846a0)] flex flex-col items-start justify-start py-5 px-[23px] box-border relative max-w-full z-[1]">
