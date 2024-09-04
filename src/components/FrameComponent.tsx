@@ -12,7 +12,7 @@ const FrameComponent: FunctionComponent<FrameComponentType> = ({
     <>
       <Link
         to="/departure"
-        className={`self-stretch flex flex-row items-start justify-start pt-0 pb-[50px] pl-[22px] pr-[21px] box-border max-w-full text-center text-5xl text-white font-inter ${className}`}
+        className={`self-stretch no-underline flex flex-row items-start justify-start pt-0 pb-[50px] pl-[22px] pr-[21px] box-border max-w-full text-center text-5xl text-white font-inter ${className}`}
       >
         <div className="flex-1 shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-mini [background:linear-gradient(100.87deg,_#39475b,_#c846a0)] flex flex-col items-end justify-start pt-5 px-3 pb-[18px] box-border gap-[85px] max-w-full z-[1]">
           <div className="w-[350px] h-[174px] relative shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-mini [background:linear-gradient(100.87deg,_#39475b,_#c846a0)] hidden max-w-full" />
