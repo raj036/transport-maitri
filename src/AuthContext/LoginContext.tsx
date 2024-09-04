@@ -73,7 +73,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         timerProgressBar: true,
         showConfirmButton: false,
       });
-      console.log(error);
+      // console.log(error);
     }
   };
 

@@ -34,14 +34,25 @@ module.exports = {
       inherit: "inherit",
     },
     screens: {
+      md: { max: "425px" },
+      sm: { max: "375px" },
+      xs: { max: "320px" },
       mq78: {
         raw: "screen and (max-width: 78px)",
       },
-      md: "425px",
-      sm: "375px",
-      xs: "320px",
     },
   },
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '::selection': {
+          backgroundColor: 'transparent', // Set background to transparent
+          color: 'inherit', // Keep the text color as it is
+        },
+      }
+      addUtilities(newUtilities, ['responsive', 'hover']);
+    }
+  ],
   corePlugins: {
     preflight: false,
   },

@@ -2,6 +2,7 @@ import { FunctionComponent, useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import axios from "../helper/axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../AuthContext/LoginContext";
 export type OuterFieldsRow2Type = {
   className?: string;
 };
@@ -24,6 +25,8 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({
   const handleButtonClick = (ref: React.RefObject<HTMLInputElement>) => {
     ref.current?.click();
   };
+
+  const { userData } = useAuth();
 
   const [fileName, setFileName] = useState({
     vehicle_number: "No file chosen",
@@ -80,7 +83,6 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({
           "ngrok-skip-browser-warning": "true",
         },
       });
-      console.log(response);
 
       // Swal.fire({
       //   title: "Registration Successful!",
@@ -96,7 +98,7 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({
       if (error.response) {
         errorMessage = error.response.data.detail || errorMessage;
       }
-      console.log(error.response.data.detail);
+      // console.log(error.response.data.detail);
       Swal.fire({
         title: "Error",
         text: errorMessage,
@@ -105,7 +107,6 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({
         confirmButtonColor: "#d33",
       });
       setIsLoading(false);
-      
     }
   };
 
@@ -135,13 +136,8 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({
           alt=""
           src="/rectangle-1.svg"
         />
-        <img
-          className="absolute top-[424px] left-[50%] translate-x-[-50%] translate-y-[50%] w-[168px] h-[3px] z-[1]"
-          loading="lazy"
-          alt=""
-          src="/line-4.svg"
-        />
       </section>
+
       <section className="self-stretch flex flex-row items-start justify-start py-0 px-[21px] box-border max-w-full">
         <form
           onSubmit={handleSubmit}
@@ -154,6 +150,12 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({
               alt=""
               src="/maitriaifull-1-1@2x.png"
             />
+          </div>
+          <div className="text-white font-inter">
+            <h3 className="m-0 mb-3">
+              Your vehicle number is :- {userData.Truck_number}{" "}
+            </h3>
+            <h3 className="m-0">Vehicle key is :- {userData.assigned_keys}</h3>
           </div>
           <div
             className={`self-stretch z-10 flex flex-row items-start justify-start py-0 pl-px pr-0 box-border max-w-full text-center text-xs text-white font-inter ${className}`}
@@ -429,10 +431,6 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({
               </div>
             </button>
           </div>
-          {/* Loader image */}
-          {isLoading && (
-            <div className="flex justify-center items-center ">loading ...</div>
-          )}
         </form>
       </section>
     </div>

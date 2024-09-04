@@ -28,12 +28,12 @@ const Page4Blank: FunctionComponent = () => {
             alt=""
             src="/rectangle-1.svg"
           />
-          <img
+          {/* <img
             className="absolute top-[612px] left-[113px] w-[168px] h-[3px] z-[1]"
             loading="lazy"
             alt=""
             src="/line-4.svg"
-          />
+          /> */}
           <img
             className="absolute top-[0px] left-[25px] rounded-3xs w-[343px] h-[377px] object-cover z-[1]"
             alt=""

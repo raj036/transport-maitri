@@ -23,6 +23,7 @@ const SignUp: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) => {
     driver_images: "No file chosen",
     driver_license: "No file chosen",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -75,6 +76,7 @@ const SignUp: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       const formattedPhoneNo = data.phone_no.replace(/\D/g, "");
@@ -101,7 +103,7 @@ const SignUp: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) => {
           },
         }
       );
-      console.log(response);
+      setIsLoading(false);
 
       Swal.fire({
         title: "Registration Successful!",
@@ -117,7 +119,8 @@ const SignUp: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) => {
       if (error.response) {
         errorMessage = error.response.data.detail || errorMessage;
       }
-      console.log(error.response.data.detail);
+      setIsLoading(false);
+      // console.log(error.response.data.detail);
       Swal.fire({
         title: "Error",
         text: errorMessage,
@@ -136,12 +139,12 @@ const SignUp: FunctionComponent<OuterFieldsRow2Type> = ({ className = "" }) => {
           alt=""
           src="/rectangle-1.svg"
         />
-        <img
+        {/* <img
           className="absolute top-[424px] left-[50%] translate-x-[-50%] translate-y-[50%] w-[168px] h-[3px] z-[1]"
           loading="lazy"
           alt=""
           src="/line-4.svg"
-        />
+        /> */}
       </section>
       <section className="self-stretch flex flex-row items-start justify-start py-0 px-[21px] box-border max-w-full">
         <form

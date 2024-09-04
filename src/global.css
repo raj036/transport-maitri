@@ -11,3 +11,12 @@ body {
 ::after {
   border-width: 0;
 }
+
+::selection {
+  @apply  bg-transparent; /* Apply Tailwind classes */
+}
+
+.selct input:-webkit-autofill {
+  background-color: yellow !important;
+  color: blue;
+}

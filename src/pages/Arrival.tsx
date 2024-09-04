@@ -1,9 +1,8 @@
 import { FunctionComponent, useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import axios from "../helper/axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext/LoginContext";
-import VerificationPage from "../components/PopUp";
 export type OuterFieldsRow2Type = {
   className?: string;
 };
@@ -25,8 +24,6 @@ const Arrival: FunctionComponent<OuterFieldsRow2Type> = ({
 
   const { userData }: any = useAuth();
 
-  console.log(userData.assigned_keys);
-  console.log(userData.Truck_number);
 
   const handleButtonClick = (ref: React.RefObject<HTMLInputElement>) => {
     ref.current?.click();
@@ -61,6 +58,10 @@ const Arrival: FunctionComponent<OuterFieldsRow2Type> = ({
     }
   };
 
+  const location = useLocation();
+  const { type } = location.state || {};
+
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
@@ -87,7 +88,6 @@ const Arrival: FunctionComponent<OuterFieldsRow2Type> = ({
           "ngrok-skip-browser-warning": "true",
         },
       });
-      console.log(response);
 
       // Swal.fire({
       //   title: "Your form submitted successfully.",
@@ -102,7 +102,7 @@ const Arrival: FunctionComponent<OuterFieldsRow2Type> = ({
       if (error.response) {
         errorMessage = error.response.data.detail || errorMessage;
       }
-      console.log(error.response.data.detail);
+      // console.log(error.response.data.detail);
       Swal.fire({
         title: "Error",
         text: errorMessage,
@@ -116,9 +116,9 @@ const Arrival: FunctionComponent<OuterFieldsRow2Type> = ({
 
   useEffect(() => {
     if (showPop) {
-      navigate("/popup");
+      navigate("/popup", { state: { type } });
     }
-  }, [showPop, navigate]);
+  }, [showPop, navigate , type]);
 
   const vehicleNoRef = useRef<HTMLInputElement>(null);
   const chassisRef = useRef<HTMLInputElement>(null);
@@ -140,12 +140,12 @@ const Arrival: FunctionComponent<OuterFieldsRow2Type> = ({
           alt=""
           src="/rectangle-1.svg"
         />
-        <img
+        {/* <img
           className="absolute top-[424px] left-[50%] translate-x-[-50%] translate-y-[50%] w-[168px] h-[3px] z-[1]"
           loading="lazy"
           alt=""
           src="/line-4.svg"
-        />
+        /> */}
       </section>
 
       <section className="self-stretch flex flex-row items-start justify-start py-0 px-[21px] box-border max-w-full">
@@ -162,12 +162,11 @@ const Arrival: FunctionComponent<OuterFieldsRow2Type> = ({
             />
           </div>
 
-          <div className="text-white">
+          {/* <div className="text-white font-inter">
             <h3 className="m-0">
-              Your truck number is :- {userData.Truck_number}{" "}
+              Submit your keys in box number :- {userData.assigned_keys}
             </h3>
-            <h3 className="m-0">Vehicle key is :- {userData.assigned_keys}</h3>
-          </div>
+          </div> */}
           <div
             className={`self-stretch z-10 flex flex-row items-start justify-start py-0 pl-px pr-0 box-border max-w-full text-center text-xs text-white font-inter ${className}`}
           >
@@ -442,10 +441,6 @@ const Arrival: FunctionComponent<OuterFieldsRow2Type> = ({
               </div>
             </button>
           </div>
-          {/* Loader image */}
-          {isLoading && (
-            <div className="flex justify-center items-center ">submitting ...</div>
-          )}
         </form>
       </section>
     </div>
