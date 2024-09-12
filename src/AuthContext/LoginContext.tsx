@@ -8,6 +8,7 @@ import React, {
 import axios from "../helper/axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import "../global.css";
 
 // Define the shape of the context
 interface AuthContextType {
@@ -65,15 +66,25 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         setUserData(response.data); // Store user data in state
         navigate("/page");
       }
-    } catch (error) {
+    } catch (error: any) {
+      let errorMessage = "An error occurred during login.";
+
+      if (error.response && error.response.data && error.response.data.detail) {
+        errorMessage = error.response.data.detail;
+        errorMessage = errorMessage.replace(/^\d+\s*:\s*/, ""); // This will remove "404 : " part
+      }
+
       Swal.fire({
-        title: "Login Failed.",
+        title: errorMessage,
+        // text: errorMessage,
+        confirmButtonColor: "#3085d6",
         icon: "error",
-        timer: 2000,
-        timerProgressBar: true,
-        showConfirmButton: false,
+        showConfirmButton: true,
+        customClass: {
+          title: "swal-title", // Target title for custom styling
+          content: "swal-text", // Target text for custom styling
+        },
       });
-      // console.log(error);
     }
   };
 
@@ -89,10 +100,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       //   confirmButtonText: "Yes, log out",
       // });
       // if (result.isConfirmed) {
-        setIsAuthenticated(false);
-        setUserData(null); // Clear user data from state
-        localStorage.removeItem("userData"); // Remove user data from localStorage
-        navigate("/");
+      setIsAuthenticated(false);
+      setUserData(null); // Clear user data from state
+      localStorage.removeItem("userData"); // Remove user data from localStorage
+      navigate("/");
       // }
     }
   };

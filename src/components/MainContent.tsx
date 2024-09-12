@@ -36,6 +36,33 @@ const MainContent: FunctionComponent<MainContentType> = ({
     }
   };
 
+  //   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0];
+  //   if (file) {
+  //     try {
+  //       // Configure compression options
+  //       const options = {
+  //         maxSizeMB: 1, // Max size of the compressed image in MB
+  //         maxWidthOrHeight: 1024, // Max width or height of the compressed image
+  //         useWebWorker: true, // Use web worker for better performance
+  //       };
+
+  //       // Compress the image
+  //       const compressedFile = await imageCompression(file, options);
+
+  //       // Update state with compressed file
+  //       setFileName(compressedFile.name);
+  //       setLogData((prevData) => ({
+  //         ...prevData,
+  //         file: compressedFile,
+  //       }));
+  //     } catch (error) {
+  //       console.error('Error compressing image:', error);
+  //       // Handle the error if necessary
+  //     }
+  //   }
+  // };
+
   const handleChange = (
     fieldName: string,
     e: React.ChangeEvent<HTMLInputElement>
@@ -135,14 +162,18 @@ const MainContent: FunctionComponent<MainContentType> = ({
               <div className="h-[49.6px] w-[350px] relative shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-mini bg-darkslategray-100 hidden max-w-full z-[0]" />
               <div className="flex flex-col items-start justify-start pt-[4.9px] px-0 pb-0">
                 <b className="relative tracking-[0.06px] leading-[13px] inline-block min-w-[37px] z-[2]">
-                  {fileName ? fileName.length > 12 ? `${fileName.substring(0,16)}...` : fileName : "No file chosen"}
+                  {fileName
+                    ? fileName.length > 12
+                      ? `${fileName.substring(0, 16)}...`
+                      : fileName
+                    : "No file chosen"}
                 </b>
               </div>
               {/* Hidden file input */}
               <input
                 ref={fileCameraRef}
                 className="hidden "
-                name="vehicle_number"
+                name="file"
                 type="file"
                 accept="image/*"
                 capture="environment"
@@ -174,7 +205,9 @@ const MainContent: FunctionComponent<MainContentType> = ({
           </div>
         </div>
         {/* upload image for login */}
-        <p className="justify-center content-center mx-auto text-white font-inter">OR</p>
+        <p className="justify-center content-center mx-auto text-white font-inter">
+          OR
+        </p>
         <div className="self-stretch flex flex-col items-start justify-start pt-0 px-0 pb-1 box-border gap-[5px] max-w-full">
           <b className="relative text-xs tracking-[0.06px] leading-[13px] inline-block font-inter text-white text-center">
             Email

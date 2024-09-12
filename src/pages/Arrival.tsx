@@ -86,6 +86,7 @@ const Arrival: FunctionComponent<OuterFieldsRow2Type> = ({
         headers: {
           "Content-Type": "multipart/form-data",
           "ngrok-skip-browser-warning": "true",
+          Authorization: `Bearer ${userData.token}`,
         },
       });
 
@@ -99,8 +100,9 @@ const Arrival: FunctionComponent<OuterFieldsRow2Type> = ({
       setShowPop(true);
     } catch (error: any) {
       let errorMessage = "An error occurred during registration.";
-      if (error.response) {
-        errorMessage = error.response.data.detail || errorMessage;
+      if (error.response && error.response.data && error.response.data.detail) {
+        errorMessage = error.response.data.detail
+        errorMessage = errorMessage.replace(/^\d+\s*:\s*/, ""); // This will remove "404 : " part
       }
       // console.log(error.response.data.detail);
       Swal.fire({

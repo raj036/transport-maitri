@@ -81,6 +81,7 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({
         headers: {
           "Content-Type": "multipart/form-data",
           "ngrok-skip-browser-warning": "true",
+          Authorization: `Bearer ${userData.token}`,
         },
       });
 
@@ -94,11 +95,12 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({
       setIsLoading(false);
       setShowPop(true);
     } catch (error: any) {
-      let errorMessage = "An error occurred during registration.";
-      if (error.response) {
-        errorMessage = error.response.data.detail || errorMessage;
+      let errorMessage = "An error occurred during form submission.";
+
+      if (error.response && error.response.data && error.response.data.detail) {
+        errorMessage = error.response.data.detail
+        errorMessage = errorMessage.replace(/^\d+\s*:\s*/, ""); // This will remove "404 : " part
       }
-      // console.log(error.response.data.detail);
       Swal.fire({
         title: "Error",
         text: errorMessage,
@@ -188,7 +190,7 @@ const Departure: FunctionComponent<OuterFieldsRow2Type> = ({
                 <input
                   ref={vehicleCameraRef}
                   className="hidden"
-                  name="chassis"
+                  name="vehicle_number"
                   type="file"
                   accept="image/*"
                   capture="environment"
